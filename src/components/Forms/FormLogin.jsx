@@ -1,19 +1,18 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { UserContext } from "../context/UserContext";
-import { Input } from "./Input";
-import { InputPassword } from "./InputPassword";
-import { Button } from "./Button";
-import { Label } from "./Label";
+import { UserContext } from "../../context/UserContext";
+import { Input } from "../ui/Input";
+import { InputPassword } from "../ui/InputPassword";
+import { Button } from "../ui/Button";
+import { Label } from "../ui/Label";
 
-import { loginSchema } from '../schemas/authSchema';
+import { loginSchema } from "../../schemas/authSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ErrorMessage from "./ErrorMessage";
-
+import ErrorMessage from "../ErrorMessage";
 
 export function FormLogin() {
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	const { handleSignIn } = useContext(UserContext);
 
 	const {
@@ -27,17 +26,16 @@ export function FormLogin() {
 	});
 
 	const onSubmit = async (data) => {
-        const { error } = await handleSignIn(data.email, data.password);
+		const { error } = await handleSignIn(data.email, data.password);
 
-        if (!error) {
-            reset(); // seu reset do react-hook-form
+		if (!error) {
+			reset(); // seu reset do react-hook-form
 			navigate("/");
-
-        } else {
-            // tratar erro
-            console.log(error);
-        }
-    };
+		} else {
+			// tratar erro
+			console.log(error);
+		}
+	};
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">

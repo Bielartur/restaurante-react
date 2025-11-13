@@ -1,5 +1,5 @@
 import React from "react";
-import { Loading } from './Loading';
+import { Loading } from "./Loading";
 
 export function Button({ children, disabled, className, ...props }) {
 	return (
@@ -15,7 +15,7 @@ export function Button({ children, disabled, className, ...props }) {
 			disabled={disabled}
 			{...props}
 		>
-			{disabled ? <Loading /> : children }
+			{disabled ? <Loading /> : children}
 		</button>
 	);
 }

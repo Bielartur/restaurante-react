@@ -1,7 +1,7 @@
 // src/routes/PrivateRoute.jsx
 import { Navigate, Outlet, useLocation } from "react-router";
 import { useUser } from "../hooks/useUser";
-import { Loading } from "../components/Loading";
+import { Loading } from "../components/ui/Loading";
 
 export function PrivateRoute() {
   const { isLogged, loading } = useUser();

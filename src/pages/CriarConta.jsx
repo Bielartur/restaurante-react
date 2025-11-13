@@ -1,6 +1,6 @@
 import React from "react";
-import { FormCadastro } from "../components/FormCadastro";
-import AuthTitle from "../components/AuthTitle";
+import { FormCadastro } from "../components/Forms/FormCadastro";
+import AuthTitle from "../components/Auth/AuthTitle";
 import { Link } from "react-router";
 
 export function CriarConta() {
