@@ -1,7 +1,10 @@
 import React from 'react'
 
-export function Main({ children }) {
+export function Main({ children, className = '' }) {
   return (
-    <main className="absolute left-36 top-16 h-full w-full p-4 bg-slate-100">{children}</main>
-  )
+    <main className={`flex-1 p-4 bg-slate-100 overflow-auto ${className}`}>
+      {children}
+    </main>
+  );
 }
+
