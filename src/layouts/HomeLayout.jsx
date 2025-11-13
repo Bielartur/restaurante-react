@@ -6,15 +6,17 @@ import { Header } from "../components/Header";
 import { Main } from "../components/Main";
 
 export function HomeLayout() {
-	return (
-		<>
-			<Header />
-			<Wrapper className="relative flex-row">
-				<Sidebar />
-				<Main>
-					<Outlet />
-				</Main>
-			</Wrapper>
-		</>
-	);
+  return (
+    <div className="min-h-screen bg-slate-900">
+      <Header />
+
+      <div className="pt-16 flex min-h-[calc(100vh-4rem)]">
+        {/* nada de items-center aqui */}
+        <Sidebar />
+        <Main>
+          <Outlet />
+        </Main>
+      </div>
+    </div>
+  );
 }

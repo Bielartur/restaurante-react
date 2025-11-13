@@ -3,8 +3,8 @@ import { NavLink } from "react-router";
 
 export function Header() {
   return (
-    <header className="w-full h-16 bg-slate-200 fixed flex items-center justify-center z-1000">
-      <nav className="w-full max-w-120 flex justify-between py-2 px-6">
+    <header className="fixed inset-x-0 top-0 h-16 bg-slate-200 flex items-center shadow-sm z-50">
+      <nav className="w-full max-w-5xl mx-auto flex justify-between px-6">
         <NavLink
           to="/"
           className={({ isActive }) =>
