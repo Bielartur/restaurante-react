@@ -16,10 +16,12 @@ export function AppRoutes() {
 				<Route path="login" element={<Login />} />
 				<Route path="cadastro" element={<CriarConta />} />
 			</Route>
-			<Route path="/" element={<PrivateRoute />}>
-				<Route index element={<Home />} />
-				<Route path='carrinho' element={<Carrinho />}/>
-				<Route path='pedidos' element={<Pedidos />} />
+			<Route element={<PrivateRoute />}>
+				<Route element={<HomeLayout />}>
+					<Route index element={<Home />} />
+					<Route path="carrinho" element={<Carrinho />} />
+					<Route path="pedidos" element={<Pedidos />} />
+				</Route>
 			</Route>
 		</Routes>
 	);

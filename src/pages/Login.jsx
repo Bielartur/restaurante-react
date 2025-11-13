@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Navigate } from "react-router";
-import { FormLogin } from "../components/FormLogin";
-import AuthTitle from "../components/AuthTitle";
+import { FormLogin } from "../components/Forms/FormLogin";
+import AuthTitle from "../components/Auth/AuthTitle";
 
 export function Login() {
 	return (
