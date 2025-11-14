@@ -11,6 +11,8 @@ export function UserProvider({ children }) {
   const [isLogged, setIsLogged] = useState(false);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [carrinho, setCarrinho] = useState([])
+  const [produtos, setProdutos] = useState([])
 
   // inicializa usuário se já houver token salvo
   useEffect(() => {
@@ -102,6 +104,10 @@ export function UserProvider({ children }) {
         userData,
         setUserData,      // idem
         loading,
+        carrinho,
+        setCarrinho,
+        produtos,
+        setProdutos,
 
         // ações de auth usando os MESMOS nomes/funções
         handleInitUser,

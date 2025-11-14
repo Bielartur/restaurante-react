@@ -24,14 +24,14 @@ export function Header() {
         >
           Pedidos
         </NavLink>
-        <NavLink
+        {/* <NavLink
           to="/carrinho"
           className={({ isActive }) =>
             isActive ? "underline underline-offset-4" : "text-stone-600"
           }
         >
           Carrinho
-        </NavLink>
+        </NavLink> */}
         <NavLink
         onClick={handleLogOut}
           to="/login"
