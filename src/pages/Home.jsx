@@ -1,17 +1,32 @@
-import React, { useContext } from 'react'
-import { Button } from '../components/ui/Button'
-import { UserContext } from '../context/UserContext'
+import React, { useEffect, useState } from "react";
+import { useRequests } from "../utils/requests";
+import { ListCard } from "../components/ListCard";
+import { CardCardapio } from "../components/CardCardapio";
 
 export function Home() {
-  const { handleLogOut } = useContext(UserContext)
+	const { getProdutos } = useRequests();
+	const [produtos, setProdutos] = useState([]);
 
-  return (
-    <>
-        <h1>Página da home</h1>
-        <p>Login bem sucedido</p>
-        <Button onClick={handleLogOut}>
-          Sair da conta
-        </Button>
-    </>
-  )
+	useEffect(() => {
+		async function loadProdutos() {
+			const response = await getProdutos();
+
+			console.log(response);
+
+			if (!response.error) {
+				setProdutos(response.data);
+			}
+		}
+
+		loadProdutos();
+	}, []);
+
+	return (
+		<>
+			<ListCard
+				itens={produtos}
+				renderItem={(produto) => <CardCardapio produto={produto} />}
+			/>
+		</>
+	);
 }

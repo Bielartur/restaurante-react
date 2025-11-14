@@ -4,7 +4,7 @@ import { Loading } from "./Loading";
 export function Button({ children, disabled, className, ...props }) {
 	return (
 		<button
-			className={`bg-linear-to-r from-indigo-600 to-sky-600 text-white 
+			className={`bg-linear-to-r from-orange-600 to-amber-600 text-white 
             rounded p-1 shadow-md hover:shadow-lg hover:bg-indigo-600 
             active:scale-96 transition-all duration-150 cursor-pointer
             disabled:from-slate-500 disabled:to-slate-600

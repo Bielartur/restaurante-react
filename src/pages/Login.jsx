@@ -11,11 +11,11 @@ export function Login() {
 				subtitle="Faça login e começe a fazer seus pedidos"
 			/>
 			<FormLogin />
-			<p className="w-full text-center text-slate-600 mt-2">
+			<p className="w-full text-center text-stone-500 mt-2">
 				Ainda não tem uma conta?{" "}
 				<Link
 					to="/cadastro"
-					className="text-slate-700 font-semibold hover:underline underline-offset-2"
+					className="text-orange-600 font-semibold hover:underline underline-offset-2"
 				>
 					Criar Conta
 				</Link>
