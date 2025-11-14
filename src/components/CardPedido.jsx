@@ -1,6 +1,8 @@
 import { faClock, faComment } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import CardProdutoPedido from "./CardProdutoPedido";
+import { CardContainer } from "./ui/CardContainer";
 
 const STATUS = {
 	PENDENTE: "pendente",
@@ -14,16 +16,15 @@ const statusStyles = {
 	[STATUS.CANCELADO]: "bg-red-200 text-red-800",
 };
 
-
 export function CardPedido({ pedido }) {
 	return (
-		<li
+		<div
 			key={`item-${pedido.id}`}
-			className="rounded shadow-md p-4 flex flex-col gap-2 bg-stone-100 justify-between h-full"
+			className="rounded shadow-md p-4 flex flex-col grow gap-2 bg-stone-100 h-full"
 		>
 			{/* <img src={pedido.imagem} alt={pedido.nome} className="rounded" /> */}
 
-			<div className="flex flex-col gap-1">
+			<div className="flex flex-col gap-1 justify-between grow">
 				<div className="flex justify-between gap-2 items-center">
 					<h3 className="text-xl font-bold text-stone-700">
 						Pedido #{pedido.id}
@@ -38,39 +39,25 @@ export function CardPedido({ pedido }) {
 					<FontAwesomeIcon icon={faClock} />
 					{pedido.criado_em_formatado}
 				</div>
-				<div className="py-3 px-2 rounded bg-stone-200 mt-2">
+				<CardContainer className="py-3 px-2 flex-col gap-2!">
 					<p className="text-stone-600 text-xs font-semibold flex gap-1 items-center">
 						<FontAwesomeIcon icon={faComment} />
 						Observação:
 					</p>
-					<p className="pl-4 text-sm mt-1">{pedido.observacao}</p>
-				</div>
-				{pedido.itens.map((item) => (
-					<div className="p-2 rounded bg-stone-200 mt-2 flex gap-3">
-						<img
-							src={item.produto.imagem}
-							alt={item.produto.nome}
-							className="w-18 rounded"
-						/>
-						<div className="flex flex-col justify-between w-full">
-							<p className="w-full font-semibold flex justify-between">
-								<span>{item.produto.nome}</span>
-								<span className="text-orange-500 text-sm">
-									R$ {item.subtotal}
-								</span>
-							</p>
-							<div className="text-sm text-stone-500">
-								<p>Quantidade: {item.quantidade}x</p>
-								<p>R$ {item.preco_unitario} un.</p>
-							</div>
-						</div>
-					</div>
-				))}
-				<div className="p-2 rounded bg-stone-200 mt-2 flex justify-between gap-3">
+					<p className="pl-4 text-sm">{pedido.observacao}</p>
+				</CardContainer>
+				<ul>
+					{pedido.itens.map((item) => (
+						<li>
+							<CardProdutoPedido item={item} />
+						</li>
+					))}
+				</ul>
+				<CardContainer className="justify-between">
 					<span>Total:</span>
 					<strong className="text-orange-500">R$ {pedido.total}</strong>
-				</div>
+				</CardContainer>
 			</div>
-		</li>
+		</div>
 	);
 }

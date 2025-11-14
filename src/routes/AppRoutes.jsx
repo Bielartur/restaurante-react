@@ -19,7 +19,7 @@ export function AppRoutes() {
 			<Route element={<PrivateRoute />}>
 				<Route element={<HomeLayout />}>
 					<Route index element={<Home />} />
-					<Route path="carrinho" element={<Carrinho />} />
+					{/* <Route path="carrinho" element={<Carrinho />} /> */}
 					<Route path="pedidos" element={<Pedidos />} />
 				</Route>
 			</Route>

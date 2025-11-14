@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useRequests } from "../utils/requests";
 import { ListCard } from "../components/ListCard";
 import { CardCardapio } from "../components/CardCardapio";
+import { UserContext } from "../context/UserContext";
 
 export function Home() {
 	const { getProdutos } = useRequests();
-	const [produtos, setProdutos] = useState([]);
+	const { produtos, setProdutos } = useContext(UserContext);
 
 	useEffect(() => {
 		async function loadProdutos() {

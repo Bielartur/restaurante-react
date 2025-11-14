@@ -22,11 +22,11 @@ export function Pedidos() {
 	}, []);
 
 	return (
-		<div className="w-1/2 mx-auto">
+		<div className="mx-auto">
 			<ListCard
 				itens={pedidos}
 				renderItem={(pedido) => <CardPedido pedido={pedido} />}
-				minSize="25rem"
+				minSize="26rem"
 			/>
 		</div>
 	);
