@@ -3,20 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 const STATUS = {
-  PENDENTE: "pendente",
-  CONCLUIDO: "concluido",
-  CANCELADO: "cancelado",
+	PENDENTE: "pendente",
+	CONCLUIDO: "concluido",
+	CANCELADO: "cancelado",
 };
 
-const statusColors = {
-  [STATUS.PENDENTE]: "orange",
-  [STATUS.CONCLUIDO]: "green",
-  [STATUS.CANCELADO]: "red",
+const statusStyles = {
+	[STATUS.PENDENTE]: "bg-orange-200 text-orange-800",
+	[STATUS.CONCLUIDO]: "bg-green-200 text-green-800",
+	[STATUS.CANCELADO]: "bg-red-200 text-red-800",
 };
 
-function getColorFromStatus(status) {
-  return statusColors[status] || "gray"; // fallback pro caso de cagada
-}
 
 export function CardPedido({ pedido }) {
 	return (
@@ -31,7 +28,11 @@ export function CardPedido({ pedido }) {
 					<h3 className="text-xl font-bold text-stone-700">
 						Pedido #{pedido.id}
 					</h3>
-					<span className={`rounded-lg bg-${getColorFromStatus(pedido.status)}-200 text-${getColorFromStatus(pedido.status)}-800 px-2 py-1`}>{pedido.status_legivel}</span>
+					<span
+						className={`rounded-lg px-2 py-1 ${statusStyles[pedido.status]}`}
+					>
+						{pedido.status_legivel}
+					</span>
 				</div>
 				<div className="text-sm text-stone-500 flex gap-1.5 items-center">
 					<FontAwesomeIcon icon={faClock} />
@@ -64,12 +65,11 @@ export function CardPedido({ pedido }) {
 							</div>
 						</div>
 					</div>
-					))}
-					<div className="p-2 rounded bg-stone-200 mt-2 flex justify-between gap-3">
-						<span>Total:</span>
-						<strong className="text-orange-500">R$ {pedido.total}</strong>
-					</div>
-
+				))}
+				<div className="p-2 rounded bg-stone-200 mt-2 flex justify-between gap-3">
+					<span>Total:</span>
+					<strong className="text-orange-500">R$ {pedido.total}</strong>
+				</div>
 			</div>
 		</li>
 	);
