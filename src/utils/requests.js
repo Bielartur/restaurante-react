@@ -12,7 +12,7 @@ const cadastrar = async ({ first_name, last_name, email, password, password_conf
     return response;
 };
 
-const atualizar_token = async (token) => {
+const atualizarToken = async (token) => {
     const response = await apiRequest("autenticacao/login", "POST", { token }, false);
     return response;
 };
@@ -22,6 +22,16 @@ const getUser = async () => {
     return response;
 };
 
+const getProdutos = async () => {
+    const response = await apiRequest("produtos");
+    return response;
+}
+
+const getPedidos = async () => {
+    const response = await apiRequest("pedidos");
+    return response;
+}
+
 
 
 // Exportando todas as requests
@@ -29,12 +39,12 @@ export const useRequests = () => ({
     // Auth
     login,
     cadastrar,
-    atualizar_token,
+    atualizarToken,
     getUser,
 
-    // // Groups / Permissions
-    // getPermissions,
-    // getGroups,
+    // Cardápio
+    getProdutos,
+    getPedidos,
     // getAGroup,
     // addGroup,
     // editGroup,

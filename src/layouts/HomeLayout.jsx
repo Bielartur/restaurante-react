@@ -7,15 +7,15 @@ import { Main } from "../components/Main";
 
 export function HomeLayout() {
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen bg-stone-900">
       <Header />
 
       <div className="pt-16 flex min-h-[calc(100vh-4rem)]">
         {/* nada de items-center aqui */}
-        <Sidebar />
         <Main>
           <Outlet />
         </Main>
+        <Sidebar />
       </div>
     </div>
   );
