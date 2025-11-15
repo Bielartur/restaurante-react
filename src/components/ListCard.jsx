@@ -8,8 +8,8 @@ export function ListCard({ itens, renderItem, minSize = "15rem" }) {
 				gridTemplateColumns: `repeat(auto-fit, minmax(${minSize}, 1fr))`,
 			}}
 		>
-			{itens.map((item, index) => (
-				<li key={index}>{renderItem(item)}</li>
+			{itens.map((item) => (
+				<li key={item.id}>{renderItem(item)}</li>
 			))}
 		</ul>
 	);

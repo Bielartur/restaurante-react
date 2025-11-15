@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
-import { useRequests } from "../utils/requests";
 import { ListCard } from "../components/ListCard";
 import { CardCardapio } from "../components/CardCardapio";
 import { UserContext } from "../context/UserContext";
+import { useRequests } from "../hooks/useRequests";
 
 export function Home() {
 	const { getProdutos } = useRequests();

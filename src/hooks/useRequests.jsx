@@ -1,5 +1,5 @@
-// src/api/requests.js
-import { apiRequest } from "./api";
+// src/hooks/useRequests.js
+import { apiRequest } from "../utils/api";
 
 // Authentication
 const login = async ({ email, password }) => {
@@ -32,6 +32,11 @@ const getPedidos = async () => {
     return response;
 }
 
+const enviarPedido = async ({ itens, observacao }) => {
+    const response = await apiRequest("pedidos/", "POST", { itens, observacao })
+    return response;
+}
+
 
 
 // Exportando todas as requests
@@ -45,22 +50,5 @@ export const useRequests = () => ({
     // Cardápio
     getProdutos,
     getPedidos,
-    // getAGroup,
-    // addGroup,
-    // editGroup,
-    // deleteGroup,
-
-    // // Employees
-    // getEmployees,
-    // getEmployee,
-    // addEmployee,
-    // editEmployee,
-    // deleteEmployee,
-
-    // // Tasks
-    // getTasks,
-    // getATask,
-    // addTask,
-    // editTask,
-    // deleteTask,
+    enviarPedido
 });

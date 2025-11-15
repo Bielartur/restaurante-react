@@ -1,8 +1,9 @@
-import { faClock, faComment } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardProdutoPedido from "./CardProdutoPedido";
 import { CardContainer } from "./ui/CardContainer";
+import CardObservacao from "./CardObservacao";
 
 const STATUS = {
 	PENDENTE: "pendente",
@@ -18,13 +19,13 @@ const statusStyles = {
 
 export function CardPedido({ pedido }) {
 	return (
-		<div
-			key={`item-${pedido.id}`}
+		<li
+			key={`item-pedido-${pedido.id}`}
 			className="rounded shadow-md p-4 flex flex-col grow gap-2 bg-stone-100 h-full"
 		>
 			{/* <img src={pedido.imagem} alt={pedido.nome} className="rounded" /> */}
 
-			<div className="flex flex-col gap-1 justify-between grow">
+			<div className="space-y-2 justify-between grow">
 				<div className="flex justify-between gap-2 items-center">
 					<h3 className="text-xl font-bold text-stone-700">
 						Pedido #{pedido.id}
@@ -39,13 +40,7 @@ export function CardPedido({ pedido }) {
 					<FontAwesomeIcon icon={faClock} />
 					{pedido.criado_em_formatado}
 				</div>
-				<CardContainer className="py-3 px-2 flex-col gap-2!">
-					<p className="text-stone-600 text-xs font-semibold flex gap-1 items-center">
-						<FontAwesomeIcon icon={faComment} />
-						Observação:
-					</p>
-					<p className="pl-4 text-sm">{pedido.observacao}</p>
-				</CardContainer>
+				<CardObservacao observacao={pedido.observacao}/>
 				<ul>
 					{pedido.itens.map((item) => (
 						<li>
@@ -53,11 +48,11 @@ export function CardPedido({ pedido }) {
 						</li>
 					))}
 				</ul>
-				<CardContainer className="justify-between">
-					<span>Total:</span>
-					<strong className="text-orange-500">R$ {pedido.total}</strong>
-				</CardContainer>
 			</div>
-		</div>
+			<CardContainer className="justify-between">
+				<span>Total:</span>
+				<strong className="text-orange-500">R$ {pedido.total}</strong>
+			</CardContainer>
+		</li>
 	);
 }

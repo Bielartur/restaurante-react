@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { CardProdutoCarrinho } from "./CardProdutoCarrinho";
 import { CardContainer } from "./ui/CardContainer";
-import { Button } from "./ui/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBroom } from "@fortawesome/free-solid-svg-icons";
+import ButtonLight from "./ui/ButtonLight";
+import { ModalEnviarPedido } from "./ModalEnviarPedido";
+import { ListCarinho } from "./ListCarinho";
+import { CarrinhoVazio } from "./CarrinhoVazio";
 
 export function Sidebar() {
-	const { carrinho, produtos } = useContext(UserContext);
+	const { carrinho, setCarrinho, produtos } = useContext(UserContext);
 
 	// --- Cálculo fora do return ---
 	const total = carrinho.reduce((acumulado, item) => {
@@ -19,33 +23,41 @@ export function Sidebar() {
 		maximumFractionDigits: 2,
 	});
 
+	const sideBarContent = (
+		<div className="fixed w-72">
+			<div className="w-full flex justify-end">
+				<ButtonLight onClick={() => setCarrinho([])}>
+					Limpar carrinho
+					<FontAwesomeIcon icon={faBroom} />
+				</ButtonLight>
+			</div>
+
+			<ListCarinho produtos={produtos} carrinho={carrinho} />
+
+			<CardContainer className="mt-4">
+				<p className="flex justify-between text-lg font-semibold w-full">
+					<span>Total:</span>
+					<span>R$ {totalFormatado}</span>
+				</p>
+			</CardContainer>
+
+			<ModalEnviarPedido
+				produtos={produtos}
+				carrinho={carrinho}
+				setCarrinho={setCarrinho}
+			/>
+		</div>
+	);
+
 	return (
 		<aside className="w-80 border-l bg-stone-50 min-h-[calc(100vh-4rem)] sticky top-16 right-0 p-4 text-sm text-stone-700">
-			<div className="fixed w-72">
-				<ul className="max-h-100 overflow-auto">
-					{carrinho.map((item) => {
-						const produto = produtos.find((p) => p.id === item.produto_id);
-
-						return (
-							<li key={item.produto_id}>
-								<CardProdutoCarrinho
-									produto={produto}
-									quantidade={item.quantidade}
-								/>
-							</li>
-						);
-					})}
-				</ul>
-
-				<CardContainer className="mt-4">
-					<p className="flex justify-between text-lg font-semibold w-full">
-						<span>Total:</span>
-						<span>R$ {totalFormatado}</span>
-					</p>
-				</CardContainer>
-
-				<Button className="w-full mt-2">Finalizar compra</Button>
-			</div>
+			{carrinho.length > 0 ? (
+				sideBarContent
+			) :
+			(
+				<CarrinhoVazio />
+			)
+		}
 		</aside>
 	);
 }

@@ -9,8 +9,6 @@ export function CardCardapio({ produto }) {
 	const { carrinho, setCarrinho } = useContext(UserContext);
 
 	const handleSetQuantidade = (novaQuantidade) => {
-		// Atualiza o estado local
-		// setQuantidade(novaQuantidade);
 
 		// Atualiza o carrinho
 		setCarrinho((prev) => {
@@ -32,7 +30,7 @@ export function CardCardapio({ produto }) {
 
 	return (
 		<li
-			key={`item-${produto.id}`}
+			key={`item-cardapio-${produto.id}`}
 			className="rounded shadow-md p-4 flex flex-col gap-2 bg-orange-100 justify-between h-full"
 		>
 			<img src={produto.imagem} alt={produto.nome} className="rounded" />
