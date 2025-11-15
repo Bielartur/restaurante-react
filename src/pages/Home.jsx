@@ -11,11 +11,11 @@ export function Home() {
 	useEffect(() => {
 		async function loadProdutos() {
 			const response = await getProdutos();
+			const data = response.data
+			console.log(data);
 
-			console.log(response);
-
-			if (!response.error) {
-				setProdutos(response.data);
+			if (!data.error || data.error == "") {
+				setProdutos(data.data);
 			}
 		}
 

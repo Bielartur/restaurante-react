@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { CardContainer } from "./ui/CardContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBroom } from "@fortawesome/free-solid-svg-icons";
 import ButtonLight from "./ui/ButtonLight";
 import { ModalEnviarPedido } from "./ModalEnviarPedido";
 import { ListCarinho } from "./ListCarinho";
 import { CarrinhoVazio } from "./CarrinhoVazio";
+import { CardTotal } from "./CardTotal";
 
 export function Sidebar() {
 	const { carrinho, setCarrinho, produtos } = useContext(UserContext);
@@ -34,30 +34,20 @@ export function Sidebar() {
 
 			<ListCarinho produtos={produtos} carrinho={carrinho} />
 
-			<CardContainer className="mt-4">
-				<p className="flex justify-between text-lg font-semibold w-full">
-					<span>Total:</span>
-					<span>R$ {totalFormatado}</span>
-				</p>
-			</CardContainer>
+			<CardTotal total={totalFormatado}/>
 
 			<ModalEnviarPedido
 				produtos={produtos}
 				carrinho={carrinho}
 				setCarrinho={setCarrinho}
+				total={totalFormatado}
 			/>
 		</div>
 	);
 
 	return (
 		<aside className="w-80 border-l bg-stone-50 min-h-[calc(100vh-4rem)] sticky top-16 right-0 p-4 text-sm text-stone-700">
-			{carrinho.length > 0 ? (
-				sideBarContent
-			) :
-			(
-				<CarrinhoVazio />
-			)
-		}
+			{carrinho.length > 0 ? sideBarContent : <CarrinhoVazio />}
 		</aside>
 	);
 }

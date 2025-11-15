@@ -1,124 +1,132 @@
 // src/context/UserContext.jsx
 import { useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
-import { clearAccessToken, getAccessToken, setAccessToken } from "../utils/HelpersToken";
+import {
+	clearAccessToken,
+	getAccessToken,
+	setAccessToken,
+} from "../utils/HelpersToken";
 import { useRequests } from "../hooks/useRequests";
-
+import toast from "react-hot-toast";
 
 export function UserProvider({ children }) {
-  const { login, cadastrar, atualizar_token, getUser } = useRequests();
+	const { login, cadastrar, atualizar_token, getUser } = useRequests();
 
-  const [isLogged, setIsLogged] = useState(false);
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [carrinho, setCarrinho] = useState([])
-  const [produtos, setProdutos] = useState([])
+	const [isLogged, setIsLogged] = useState(false);
+	const [userData, setUserData] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [carrinho, setCarrinho] = useState([]);
+	const [produtos, setProdutos] = useState([]);
 
-  // inicializa usuário se já houver token salvo
-  useEffect(() => {
-    handleInitUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+	// inicializa usuário se já houver token salvo
+	useEffect(() => {
+		handleInitUser();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-  async function handleInitUser() {
-    const token = getAccessToken();
-    if (!token) {
-      setLoading(false);
-      return;
-    }
+	async function handleInitUser() {
+		const token = getAccessToken();
+		if (!token) {
+			setLoading(false);
+			return;
+		}
 
-    const resp = await getUser();
-    if (!resp.error) {
-      // espera-se { user, ... } – ajuste se sua API retornar outra estrutura
-      setUserData(resp.data?.usuario ?? resp.data);
-      setIsLogged(true);
-    } else {
-      clearAccessToken();
-      setIsLogged(false);
-      setUserData(null);
-    }
-    setLoading(false);
-  }
+		const resp = await getUser();
+		if (!resp.error) {
+			// espera-se { user, ... } – ajuste se sua API retornar outra estrutura
+			setUserData(resp.data?.usuario ?? resp.data);
+			setIsLogged(true);
+		} else {
+			clearAccessToken();
+			setIsLogged(false);
+			setUserData(null);
+		}
+		setLoading(false);
+	}
 
-  // LOGIN
-  async function handleSignIn(email, password) {
-    const resp = await login({ email, password });
-    if (!resp.error) {
-      // tente pegar o token como 'access' ou 'token'
-      const access =
-        resp.data?.token;
-      if (access) setAccessToken(access);
+	// LOGIN
+	async function handleSignIn(email, password) {
+		const resp = await login({ email, password });
+		if (!resp.error || resp.error === "") {
+			// tente pegar o token como 'access' ou 'token'
+			const access = resp.data?.data.token;
+			if (access) setAccessToken(access);
 
-      setUserData(resp.data?.usuario ?? resp.data);
-      setIsLogged(true);
-    }
-    
-    return resp; // mantém o padrão { data, error }
-  }
+			toast.success(resp.data.message);
 
-  // CADASTRAR
-  async function handleCadastrar(payload) {
-    // { first_name, last_name, email, password, password_confirm }
-    const resp = await cadastrar(payload);
-    // algumas APIs já devolvem access token no cadastro; trate se existir
-    if (!resp.error) {
-      const access =
-        resp.data?.token ?? resp.data?.access_token;
-      if (access) setAccessToken(access);
+			setUserData(resp.data?.data.usuario ?? resp.data);
+			setIsLogged(true);
+		}
 
-      // se não devolver user, deixe para o init ou chame getUser
-      if (resp.data?.usuario) setUserData(resp.data.usuario);
-      setIsLogged(!!access || !!resp.data?.usuario);
-    }
-    return resp;
-  }
+		return resp; // mantém o padrão { data, error }
+	}
 
-  // ATUALIZAR TOKEN (sliding/refresh)
-  async function handleAtualizarToken() {
-    const tokenAtual = getAccessToken();
-    if (!tokenAtual) return { data: null, error: "Sem token" };
+	// CADASTRAR
+	async function handleCadastrar(payload) {
+		// { first_name, last_name, email, password, password_confirm }
+		const resp = await cadastrar(payload);
+		// algumas APIs já devolvem access token no cadastro; trate se existir
+		if (!resp.error || resp.error === "") {
+			const access = resp.data?.data.token ?? resp.data?.data.access_token;
+			if (access) setAccessToken(access);
 
-    const resp = await atualizar_token(tokenAtual);
-    if (!resp.error) {
-      const novo =
-        resp.data?.access ?? resp.data?.token ?? resp.data?.access_token;
-      if (novo) setAccessToken(novo);
-    } else {
-      // refresh falhou: derruba sessão
-      handleLogOut();
-    }
-    return resp;
-  }
+			// se não devolver user, deixe para o init ou chame getUser
+			if (resp.data?.data.usuario) setUserData(resp.data.data.usuario);
+			setIsLogged(!!access || !!resp.data?.data.usuario);
 
-  function handleLogOut() {
+			toast.success(resp.data.message);
+		}
+		return resp;
+	}
+
+	// ATUALIZAR TOKEN (sliding/refresh)
+	async function handleAtualizarToken() {
+		const tokenAtual = getAccessToken();
+		if (!tokenAtual) return { data: null, error: "Sem token" };
+
+		const resp = await atualizar_token(tokenAtual);
+		if (!resp.error || resp.error === "") {
+			const novo = resp.data?.data.token ?? resp.data?.data.access_token;
+			if (novo) setAccessToken(novo);
+
+      toast.success(resp.data.message)
+
+		} else {
+			// refresh falhou: derruba sessão
+			handleLogOut();
+		}
+		return resp;
+	}
+
+	function handleLogOut() {
     clearAccessToken();
-    setIsLogged(false);
-    setUserData(null);
-  }
+		setIsLogged(false);
+		setUserData(null);
+    toast.success("Você saiu da sua conta com sucesso")
+	}
 
+	return (
+		<UserContext.Provider
+			value={{
+				isLogged,
+				setIsLogged,
+				userData,
+				setUserData,
+				loading,
+				carrinho,
+				setCarrinho,
+				produtos,
+				setProdutos,
 
-  return (
-    <UserContext.Provider
-      value={{
-        isLogged,
-        setIsLogged,      
-        userData,
-        setUserData,
-        loading,
-        carrinho,
-        setCarrinho,
-        produtos,
-        setProdutos,
-
-        // ações de auth usando os MESMOS nomes/funções
-        handleInitUser,
-        handleSignIn,
-        handleCadastrar,
-        handleAtualizarToken,
-        handleLogOut,
-      }}
-    >
-      {children}
-    </UserContext.Provider>
-  );
+				// ações de auth usando os MESMOS nomes/funções
+				handleInitUser,
+				handleSignIn,
+				handleCadastrar,
+				handleAtualizarToken,
+				handleLogOut,
+			}}
+		>
+			{children}
+		</UserContext.Provider>
+	);
 }

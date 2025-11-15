@@ -9,8 +9,10 @@ import LabelObservacao from "./LabelObservacao";
 import { useRequests } from "../hooks/useRequests";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { CardTotal } from "./CardTotal";
+import toast from "react-hot-toast";
 
-export function ModalEnviarPedido({ produtos, carrinho, setCarrinho }) {
+export function ModalEnviarPedido({ produtos, carrinho, setCarrinho, total }) {
 	const { enviarPedido } = useRequests();
 	const [open, setOpen] = useState(false);
 
@@ -28,17 +30,18 @@ export function ModalEnviarPedido({ produtos, carrinho, setCarrinho }) {
 			itens: carrinho,
 			observacao: data.observacao,
 		};
-		console.log(body);
+
 		const response = await enviarPedido(body);
 		if (response.error) {
 			console.log(response.error);
 			return;
 		}
 
+		toast.success("Pedido enviado com sucesso!");
 		reset();
 		setCarrinho([]);
 
-		setOpen(false)
+		setOpen(false);
 	};
 
 	return (
@@ -64,7 +67,13 @@ export function ModalEnviarPedido({ produtos, carrinho, setCarrinho }) {
 
 					<Dialog.Description className="text-sm flex flex-col gap-2">
 						<p>Confira os detalhes do seu pedido antes de enviar.</p>
-						<ListCarinho produtos={produtos} carrinho={carrinho} />
+						<ListCarinho produtos={produtos} carrinho={carrinho} className="max-h-78!" />
+
+						<CardTotal
+							total={total}
+							classNameContainer="mt-3"
+							classNameText="text-md"
+						/>
 
 						<Label htmlFor="observacao" className="space-y-1 my-2">
 							<LabelObservacao />
