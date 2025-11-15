@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useRequests } from "../utils/requests";
 import { CardPedido } from "../components/CardPedido";
 import { ListCard } from "../components/ListCard"
+import { useRequests } from "../hooks/useRequests";
 
 export function Pedidos() {
 	const { getPedidos } = useRequests();

@@ -1,8 +1,8 @@
 // src/context/UserContext.jsx
 import { useEffect, useState } from "react";
-import { useRequests } from "../utils/requests" // onde estão login/cadastrar/atualizar_token/getUser
 import { UserContext } from "./UserContext";
 import { clearAccessToken, getAccessToken, setAccessToken } from "../utils/HelpersToken";
+import { useRequests } from "../hooks/useRequests";
 
 
 export function UserProvider({ children }) {
@@ -96,13 +96,14 @@ export function UserProvider({ children }) {
     setUserData(null);
   }
 
+
   return (
     <UserContext.Provider
       value={{
         isLogged,
-        setIsLogged,      // mantém seu shape original
+        setIsLogged,      
         userData,
-        setUserData,      // idem
+        setUserData,
         loading,
         carrinho,
         setCarrinho,
