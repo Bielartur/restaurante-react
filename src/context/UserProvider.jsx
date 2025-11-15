@@ -52,8 +52,6 @@ export function UserProvider({ children }) {
 			const access = resp.data?.data.token;
 			if (access) setAccessToken(access);
 
-			toast.success(resp.data.message);
-
 			setUserData(resp.data?.data.usuario ?? resp.data);
 			setIsLogged(true);
 		}
@@ -73,8 +71,6 @@ export function UserProvider({ children }) {
 			// se não devolver user, deixe para o init ou chame getUser
 			if (resp.data?.data.usuario) setUserData(resp.data.data.usuario);
 			setIsLogged(!!access || !!resp.data?.data.usuario);
-
-			toast.success(resp.data.message);
 		}
 		return resp;
 	}
@@ -89,8 +85,6 @@ export function UserProvider({ children }) {
 			const novo = resp.data?.data.token ?? resp.data?.data.access_token;
 			if (novo) setAccessToken(novo);
 
-      toast.success(resp.data.message)
-
 		} else {
 			// refresh falhou: derruba sessão
 			handleLogOut();
@@ -99,10 +93,10 @@ export function UserProvider({ children }) {
 	}
 
 	function handleLogOut() {
-    clearAccessToken();
+		clearAccessToken();
 		setIsLogged(false);
 		setUserData(null);
-    toast.success("Você saiu da sua conta com sucesso")
+		toast.success("Você saiu da sua conta com sucesso");
 	}
 
 	return (

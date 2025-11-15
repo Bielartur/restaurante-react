@@ -10,6 +10,7 @@ import { Label } from "../ui/Label";
 import { loginSchema } from "../../schemas/authSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ErrorMessage from "../ErrorMessage";
+import toast from "react-hot-toast";
 
 export function FormLogin() {
 	const navigate = useNavigate();
@@ -26,14 +27,15 @@ export function FormLogin() {
 	});
 
 	const onSubmit = async (data) => {
-		const { error } = await handleSignIn(data.email, data.password);
+		const response = await handleSignIn(data.email, data.password);
 
-		if (!error) {
+		if (!response.error) {
 			reset(); // seu reset do react-hook-form
 			navigate("/");
+			toast.success(response.data.message);
 		} else {
 			// tratar erro
-			console.log(error);
+			toast.error(response.data.error);
 		}
 	};
 
