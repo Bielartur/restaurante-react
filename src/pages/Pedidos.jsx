@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CardPedido } from "../components/CardPedido";
 import { ListCard } from "../components/ListCard"
+import { Loading } from "../components/ui/Loading"
 import { useRequests } from "../hooks/useRequests";
 
 export function Pedidos() {
@@ -10,11 +11,10 @@ export function Pedidos() {
 	useEffect(() => {
 		async function loadPedidos() {
 			const response = await getPedidos();
+			const data = response.data
 
-			console.log(response);
-
-			if (!response.error) {
-				setPedidos(response.data);
+			if (!data.error) {
+				setPedidos(data.data);
 			}
 		}
 
@@ -23,11 +23,16 @@ export function Pedidos() {
 
 	return (
 		<div className="mx-auto">
-			<ListCard
+			{pedidos ? (
+				<ListCard
 				itens={pedidos}
 				renderItem={(pedido) => <CardPedido pedido={pedido} />}
 				minSize="26rem"
 			/>
+			) :
+			<Loading />
+		}
+			
 		</div>
 	);
 }

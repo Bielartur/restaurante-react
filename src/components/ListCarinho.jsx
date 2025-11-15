@@ -1,9 +1,9 @@
 import React from "react";
 import { CardProdutoCarrinho } from "./CardProdutoCarrinho";
 
-export function ListCarinho({ carrinho, produtos }) {
+export function ListCarinho({ carrinho, produtos, className }) {
 	return (
-		<ul className="max-h-100 overflow-auto">
+		<ul className={`max-h-100 overflow-auto ${className}`}>
 			{carrinho.map((item) => {
 				const produto = produtos.find((p) => p.id === item.produto_id);
 

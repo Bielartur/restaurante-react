@@ -2,8 +2,8 @@ import React from "react";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardProdutoPedido from "./CardProdutoPedido";
-import { CardContainer } from "./ui/CardContainer";
 import CardObservacao from "./CardObservacao";
+import { CardTotal } from "./CardTotal";
 
 const STATUS = {
 	PENDENTE: "pendente",
@@ -40,7 +40,7 @@ export function CardPedido({ pedido }) {
 					<FontAwesomeIcon icon={faClock} />
 					{pedido.criado_em_formatado}
 				</div>
-				<CardObservacao observacao={pedido.observacao}/>
+				<CardObservacao observacao={pedido.observacao} />
 				<ul>
 					{pedido.itens.map((item) => (
 						<li>
@@ -49,10 +49,7 @@ export function CardPedido({ pedido }) {
 					))}
 				</ul>
 			</div>
-			<CardContainer className="justify-between">
-				<span>Total:</span>
-				<strong className="text-orange-500">R$ {pedido.total}</strong>
-			</CardContainer>
+			<CardTotal total={pedido.total} />
 		</li>
 	);
 }

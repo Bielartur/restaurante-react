@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getAccessToken } from "./HelpersToken";
+import toast from "react-hot-toast";
 
 const BASE_URL = "http://localhost:8000/";
 
@@ -33,7 +34,10 @@ export async function apiRequest(endpoint, method = "GET", data = {}, withAuth =
       error: "",
     };
   } catch (e) {
-    const errorResponse = e.response.statusText || e.error || e.response.error  || "Erro desconhecido";
+    const errorResponse = e.response.data.error || e.response.data.detail[0].msg || e.error || "Erro desconhecido";
+
+    toast.error(errorResponse)
+
     return {
       data: null,
       error: errorResponse,
