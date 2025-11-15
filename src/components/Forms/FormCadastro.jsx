@@ -10,6 +10,7 @@ import { Label } from "../ui/Label";
 import { cadastrarSchema } from "../../schemas/authSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ErrorMessage from "../ErrorMessage";
+import toast from "react-hot-toast";
 
 export function FormCadastro() {
 	const navigate = useNavigate();
@@ -33,15 +34,17 @@ export function FormCadastro() {
 
 	const onSubmit = async (data) => {
 		// data = { first_name, last_name, email, password, password_confirm }
-		const { error } = await handleCadastrar(data);
+		const { response } = await handleCadastrar(data);
 
-		if (!error) {
+		if (!response.error) {
 			// deu bom: contexto já salvou user, token e isLogged
 			reset();
 			navigate("/");
+			toast.success(response.data.message);
+
 		} else {
 			// deu ruim: exibe erro
-			console.log(error);
+			toast.error(response.data.error);
 			// ou seta num estado de erro / toast etc.
 		}
 	};

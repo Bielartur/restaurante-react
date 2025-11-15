@@ -37,6 +37,10 @@ const enviarPedido = async ({ itens, observacao }) => {
     return response;
 }
 
+const getCategorias = async () => {
+    const response = await apiRequest("categorias");
+    return response;
+}
 
 
 // Exportando todas as requests
@@ -50,5 +54,6 @@ export const useRequests = () => ({
     // Cardápio
     getProdutos,
     getPedidos,
-    enviarPedido
+    enviarPedido,
+    getCategorias
 });
