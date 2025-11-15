@@ -49,14 +49,16 @@ export function FormCadastro() {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
 			<div className="flex gap-2">
-				<Label text="Nome" htmlFor="first_name">
+				<Label htmlFor="first_name">
+					<span>Nome</span>
 					<Input placeholder="Digite seu nome" {...register("first_name")} />
 					{errors?.first_name && (
 						<ErrorMessage message={errors.first_name.message} />
 					)}
 				</Label>
 
-				<Label text="Sobrenome" htmlFor="last_name">
+				<Label htmlFor="last_name">
+					<span>Sobrenome</span>
 					<Input
 						placeholder="Digite seu sobrenome"
 						{...register("last_name")}
@@ -67,7 +69,8 @@ export function FormCadastro() {
 				</Label>
 			</div>
 
-			<Label text="Email" htmlFor="email">
+			<Label htmlFor="email">
+				<span>Email</span>
 				<Input
 					type="email"
 					placeholder="Digite seu email"
@@ -76,12 +79,14 @@ export function FormCadastro() {
 				{errors?.email && <ErrorMessage message={errors.email.message} />}
 			</Label>
 
-			<Label text="Senha" htmlFor="password">
+			<Label htmlFor="password">
+				<span>Senha</span>
 				<InputPassword {...register("password")} />
 				{errors?.password && <ErrorMessage message={errors.password.message} />}
 			</Label>
 
-			<Label text="Confirmar senha" htmlFor="password_confirm">
+			<Label htmlFor="password_confirm">
+				<span>Confirmar senha</span>
 				<InputPassword {...register("password_confirm")} />
 				{errors?.password_confirm && (
 					<ErrorMessage message={errors.password_confirm.message} />

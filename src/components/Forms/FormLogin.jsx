@@ -40,6 +40,7 @@ export function FormLogin() {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
 			<Label text="Email" htmlFor="email">
+				<span>Email</span>
 				<Input
 					placeholder="Digite seu email"
 					{...register("email", { required: "O email é obrigatório" })}
@@ -47,7 +48,8 @@ export function FormLogin() {
 				{errors?.email && <ErrorMessage message={errors.email.message} />}
 			</Label>
 
-			<Label text="Senha" htmlFor="password">
+			<Label htmlFor="password">
+				<span>Senha</span>
 				<InputPassword
 					{...register("password", { required: "A senha é obrigatória" })}
 				/>
