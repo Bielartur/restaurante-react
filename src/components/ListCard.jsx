@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export function ListCard({ itens, renderItem, minSize = "15rem", keyPrefix = "", }) {
 
     return (
-        <motion.ul
+        <ul
             className={`grid gap-6 items-stretch mx-auto w-full max-w-6xl`}
             style={{
                 gridTemplateColumns: `repeat(auto-fill, minmax(${minSize}, 1fr))`,
@@ -22,6 +22,6 @@ export function ListCard({ itens, renderItem, minSize = "15rem", keyPrefix = "",
                     {renderItem(item)}
                 </motion.li>
             ))}
-        </motion.ul>
+        </ul>
     );
 }
