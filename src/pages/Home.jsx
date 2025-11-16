@@ -48,6 +48,7 @@ export function Home() {
 			{categorias.length > 0 ? (
 				<ul className="flex justify-center gap-2 flex-wrap mt-4 mb-6">
 					<CardChoice
+						key={`categoria-todas`}
 						isActive={categoriaSelecionada === null}
 						onClick={() => setCategoriaSelecionada(null)}
 					>
@@ -69,6 +70,7 @@ export function Home() {
 			)}
 
 			<ListCard
+				keyPrefix="item-cardapio"
 				itens={produtosFiltrados}
 				renderItem={(produto) => <CardCardapio produto={produto} />}
 			/>

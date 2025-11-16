@@ -19,8 +19,7 @@ const statusStyles = {
 
 export function CardPedido({ pedido }) {
 	return (
-		<li
-			key={`item-pedido-${pedido.id}`}
+		<div
 			className="rounded shadow-md p-4 flex flex-col grow gap-2 bg-stone-100 h-full"
 		>
 			{/* <img src={pedido.imagem} alt={pedido.nome} className="rounded" /> */}
@@ -43,13 +42,13 @@ export function CardPedido({ pedido }) {
 				<CardObservacao observacao={pedido.observacao} />
 				<ul>
 					{pedido.itens.map((item) => (
-						<li>
+						<li key={`#${pedido.id} - ${item.id}`}>
 							<CardProdutoPedido item={item} />
 						</li>
 					))}
 				</ul>
 			</div>
 			<CardTotal total={pedido.total} />
-		</li>
+		</div>
 	);
 }

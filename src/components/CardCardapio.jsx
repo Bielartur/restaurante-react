@@ -9,7 +9,6 @@ export function CardCardapio({ produto }) {
 	const { carrinho, setCarrinho } = useContext(UserContext);
 
 	const handleSetQuantidade = (novaQuantidade) => {
-
 		// Atualiza o carrinho
 		setCarrinho((prev) => {
 			const semAtual = prev.filter((item) => item.produto_id !== produto.id);
@@ -29,8 +28,8 @@ export function CardCardapio({ produto }) {
 	const quantidade = item ? item.quantidade : 0;
 
 	return (
-		<li
-			key={`item-cardapio-${produto.id}`}
+		<div
+			
 			className="rounded shadow-md p-4 flex flex-col gap-2 bg-orange-100 justify-between h-full"
 		>
 			<img src={produto.imagem} alt={produto.nome} className="rounded" />
@@ -59,6 +58,6 @@ export function CardCardapio({ produto }) {
 					/>
 				)}
 			</div>
-		</li>
+		</div>
 	);
 }
