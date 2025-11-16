@@ -24,7 +24,7 @@ export function Sidebar() {
 	});
 
 	const sideBarContent = (
-		<div className="fixed w-72">
+		<>
 			<div className="w-full flex justify-end">
 				<ButtonLight onClick={() => setCarrinho([])}>
 					Limpar carrinho
@@ -34,7 +34,7 @@ export function Sidebar() {
 
 			<ListCarinho produtos={produtos} carrinho={carrinho} />
 
-			<CardTotal total={totalFormatado}/>
+			<CardTotal total={totalFormatado} />
 
 			<ModalEnviarPedido
 				produtos={produtos}
@@ -42,12 +42,14 @@ export function Sidebar() {
 				setCarrinho={setCarrinho}
 				total={totalFormatado}
 			/>
-		</div>
+		</>
 	);
 
 	return (
 		<aside className="w-80 border-l bg-stone-50 min-h-[calc(100vh-4rem)] sticky top-16 right-0 p-4 text-sm text-stone-700">
-			{carrinho.length > 0 ? sideBarContent : <CarrinhoVazio />}
+			<div className="fixed w-72">
+				{carrinho.length > 0 ? sideBarContent : <CarrinhoVazio />}
+			</div>
 		</aside>
 	);
 }
